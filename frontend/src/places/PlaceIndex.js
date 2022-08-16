@@ -1,17 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router";
+import { CurrentUser } from '../contexts/CurrentUser'
+
 
 function PlaceIndex(data) {
 
 	const history = useHistory()
 	
 	const [places, setPlaces] = useState([])
-
+	const { currentUser } = useContext(CurrentUser)
 	useEffect(() => {
+		
 		const fetchData = async () => {
+			
 			const response = await fetch(`http://localhost:5000/places`)
 			const resData = await response.json()
 			setPlaces(resData)
+			
 		}
 		fetchData()
 	}, [])
